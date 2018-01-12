@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "143860831628",
+    "firebase_url": "https://spoonfulofhyderabad-b5a09.firebaseio.com",
+    "project_id": "spoonfulofhyderabad-b5a09",
+    "storage_bucket": "spoonfulofhyderabad-b5a09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143860831628:android:58e2d6e3d930f003",
+        "android_client_info": {
+          "package_name": "com.sohail.spoonfulofhyderabad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143860831628-nrn68dojqoqvjd6l746d8a8husdqn7fo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sohail.spoonfulofhyderabad",
+            "certificate_hash": "8cb6abec7e6e92fbb4f2b3ea9b46f5357447196d"
+          }
+        },
+        {
+          "client_id": "143860831628-ff25l1c3elo2v0sdcs2p0e0qau7mgdbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8uakXfq84nXE8NZ_6-Ge148wnjdj_PDg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143860831628-ff25l1c3elo2v0sdcs2p0e0qau7mgdbg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
