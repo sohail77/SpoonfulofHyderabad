@@ -39,6 +39,8 @@ public class Hotel_adatpters extends RecyclerView.Adapter<Hotel_adatpters.ViewHo
     @Override
     public void onBindViewHolder(Hotel_adatpters.ViewHolder holder, final int position) {
         holder.nameText.setText(hotels.get(position).getName());
+        holder.address.setText(hotels.get(position).getAddress());
+        holder.type.setText(hotels.get(position).getType());
 //        holder.image.setText(hotels.get(position).getImage());
        // holder.contact.setText((int) hotels.get(position).getContact());
 
@@ -65,12 +67,14 @@ public class Hotel_adatpters extends RecyclerView.Adapter<Hotel_adatpters.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        public TextView nameText,contact;
+        public TextView nameText,address,type;
         public CircularImageView image;
         public ViewHolder(View itemView) {
             super(itemView);
             mView=itemView;
             nameText=(TextView)mView.findViewById(R.id.name_text);
+            address=(TextView)mView.findViewById(R.id.address_text);
+            type=(TextView)mView.findViewById(R.id.type_text);
             image=(CircularImageView) mView.findViewById(R.id.image);
 //            contact=(TextView)mView.findViewById(R.id.contact);
 

@@ -1,7 +1,6 @@
 package com.sohail.spoonfulofhyderabad;
 
 import com.google.android.gms.maps.model.LatLng;
-
 import java.util.HashMap;
 
 /**
