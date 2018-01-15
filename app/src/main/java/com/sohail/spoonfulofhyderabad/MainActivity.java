@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         hotel_lists=new ArrayList<>();
-        hotel_adatpters=new Hotel_adatpters(getApplicationContext(),hotel_lists);
+        hotel_adatpters=new Hotel_adatpters(MainActivity.this,hotel_lists);
         itemPicker = (DiscreteScrollView) findViewById(R.id.item_picker);
         itemPicker.setOrientation(Orientation.HORIZONTAL);
         itemPicker.addOnItemChangedListener(this);
