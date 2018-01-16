@@ -37,14 +37,10 @@
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:theme="@style/listtheme">
-
-        </activity>
-
-        <activity android:name=".CouponActivity"
-            android:theme="@style/listtheme">
-
-        </activity>
+            android:theme="@style/detailTheme"></activity>
+        <activity
+            android:name=".CouponActivity"
+            android:theme="@style/listtheme"></activity>
     </application>
 
 </manifest>

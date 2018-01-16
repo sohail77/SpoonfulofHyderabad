@@ -38,8 +38,11 @@ dependencies {
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'com.github.joaquimley:faboptions:1.1.2'
     compile 'com.dynamitechetan.fogviewlibrary:FogViewLibrary:1.0.0'
+    compile 'com.github.florent37:expectanim:1.0.7'
+    compile 'com.jakewharton:butterknife:8.1.0'
 
 }
+
 
 
 
