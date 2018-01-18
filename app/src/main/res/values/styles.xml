@@ -26,4 +26,12 @@
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/white </item>
     </style>
 
+    <style name="IntroScreen" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimaryDark">@android:color/white</item>
+    <item name="android:windowBackground">@drawable/gradient</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">#ec8c69</item>
+
+
+    </style>
+
 </resources>

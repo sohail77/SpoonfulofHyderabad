@@ -2,6 +2,7 @@ package com.sohail.spoonfulofhyderabad;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -19,6 +23,9 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -30,6 +37,7 @@ import com.yarolegovich.discretescrollview.Orientation;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         View.OnClickListener{
 
     private static final String TAG ="Firelog" ;
+    private static final int RC_SIGN_IN = 1;
     protected ArrayList<Geofence> mGeofenceList;
     protected GoogleApiClient mGoogleApiClient;
     private Button mAddGeofencesButton;
@@ -44,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     private List<Hotels_model> hotel_lists;
     private Hotel_adatpters hotel_adatpters;
     private DiscreteScrollView itemPicker;
+    Button logoutBtn;
+    FirebaseAuth auth;
 
 
 
@@ -52,6 +63,27 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        auth=FirebaseAuth.getInstance();
+        if(auth.getCurrentUser() !=null)
+        {
+//            Toast.makeText(this,"Welcome "+auth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
+
+        }else {
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(
+                                    Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
+                                            new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
+                                    ))
+                            .setTheme(R.style.IntroScreen)
+                            .build(),
+                    RC_SIGN_IN);
+        }
+
+
+
         hotel_lists=new ArrayList<>();
         hotel_adatpters=new Hotel_adatpters(MainActivity.this,hotel_lists);
         itemPicker = (DiscreteScrollView) findViewById(R.id.item_picker);
@@ -83,6 +115,20 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
             }
         });
 
+        logoutBtn=(Button)findViewById(R.id.logout_btn);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AuthUI.getInstance().signOut(MainActivity.this)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                finish();
+                            }
+                        });
+            }
+        });
+
 
 
 //        mAddGeofencesButton = (Button) findViewById(R.id.add_geofences_button);
@@ -97,6 +143,15 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RC_SIGN_IN){
+            if(resultCode==RESULT_OK){
+                Toast.makeText(this,"Welcome "+auth.getCurrentUser().getDisplayName(),Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     @Override
     public void onClick(View view) {

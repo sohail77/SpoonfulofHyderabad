@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Spoonful of Hyderabad</string>
+
+    <string name="facebook_application_id" translatable="false">1568672416579925</string>
+    <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
+    <string name="facebook_login_protocol_scheme" translatable="false">325990f1a962982a01d15a72a5ceade3</string>
+
 </resources>
