@@ -4,5 +4,20 @@
     <string name="facebook_application_id" translatable="false">1568672416579925</string>
     <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
     <string name="facebook_login_protocol_scheme" translatable="false">325990f1a962982a01d15a72a5ceade3</string>
+    <string name="geofences_added">geo added</string>
+    <string name="geofences_removed">geo removed</string>
+    <string name="insufficient_permissions">insufficient permission</string>
+    <string name="permission_rationale">permission is needed</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core         functionality</string>
+    <string name="settings">settings</string>
+    <string name="geofence_transition_entered">Deal nearby</string>
+    <string name="geofence_transition_exited">Exited</string>
+    <string name="unknown_geofence_transition">Unknown</string>
+    <string name="geofence_transition_notification_text">Open the app to know more</string>
+    <string name="geofence_transition_invalid_type">Geofence transition error: invalid transition type %1$d</string>
+    <string name="unknown_geofence_error">Unknown error: the Geofence service is not available now</string>
+    <string name="geofence_not_available">Geofence service is not available now</string>
+    <string name="geofence_too_many_geofences">Your app has registered too many geofences</string>
+    <string name="geofence_too_many_pending_intents">You have provided too many PendingIntents to the addGeofences() call</string>
 
 </resources>

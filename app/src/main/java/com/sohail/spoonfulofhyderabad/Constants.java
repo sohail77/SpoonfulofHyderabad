@@ -10,20 +10,13 @@ import java.util.HashMap;
 public class Constants {
 
     public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS = 60 * 60 * 1000;
-    public static final float GEOFENCE_RADIUS_IN_METERS = 500;
+    public static final float GEOFENCE_RADIUS_IN_METERS = 1500;
 
-    public static final HashMap<String, LatLng> LANDMARKS = new HashMap<String, LatLng>();
-    static {
-        // San Francisco International Airport.
-        LANDMARKS.put("Mamagato", new LatLng(17.4101080, 78.4402424));
+    private static final String PACKAGE_NAME = "com.sohail.spoonfulofhyderabad";
 
-        // Googleplex.
-        LANDMARKS.put("Muffakham jah", new LatLng(17.4282648, 78.442848));
 
-        // Test
-        LANDMARKS.put("Deccan", new LatLng(17.3845578, 78.4649667));
+    static final String GEOFENCES_ADDED_KEY = PACKAGE_NAME + ".GEOFENCES_ADDED_KEY";
 
-        LANDMARKS.put("Osmania", new LatLng(17.4180039, 78.5273363));
-        LANDMARKS.put("JNTU", new LatLng(17.494568, 78.3920556));
-    }
+
+
 }

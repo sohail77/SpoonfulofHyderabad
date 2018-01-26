@@ -1,5 +1,10 @@
 package com.sohail.spoonfulofhyderabad;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.firestore.GeoPoint;
+
+import java.util.HashMap;
+
 /**
  * Created by SOHAIL on 10/01/18.
  */
@@ -7,7 +12,8 @@ package com.sohail.spoonfulofhyderabad;
 public class Hotels_model {
     public String name,image,address,type;
     public long contact;
-
+    GeoPoint location;
+    double lat,longitude;
 
     public Hotels_model() {
     }
@@ -47,6 +53,30 @@ public class Hotels_model {
     public String getAddress() {
 
         return address;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
+    public void setLocation(GeoPoint location) {
+        this.location = location;
     }
 
     public void setAddress(String address) {

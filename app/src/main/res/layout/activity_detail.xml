@@ -150,6 +150,7 @@
                 android:layout_height="wrap_content"
                 android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an"
                 android:fontFamily="@font/carme"
+                android:id="@+id/type"
                 android:layout_margin="6dp"/>
 
             <LinearLayout

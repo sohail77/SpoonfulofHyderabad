@@ -47,6 +47,7 @@ public class Hotel_adatpters extends RecyclerView.Adapter<Hotel_adatpters.ViewHo
         holder.nameText.setText(hotels.get(position).getName());
         holder.address.setText(hotels.get(position).getAddress());
         holder.type.setText(hotels.get(position).getType());
+
 //        holder.image.setText(hotels.get(position).getImage());
        // holder.contact.setText((int) hotels.get(position).getContact());
 
