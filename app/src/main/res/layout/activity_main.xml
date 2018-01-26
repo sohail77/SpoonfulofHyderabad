@@ -17,9 +17,17 @@
         app:cardElevation="4dp"
         >
 
+
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -55,18 +63,18 @@
             android:textSize="20sp"
             android:fontFamily="@font/carme"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="logout"
-            android:id="@+id/logout_btn"/>
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="logout"-->
+            <!--android:id="@+id/logout_btn"/>-->
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="remove"
-            android:id="@+id/remove"
-            android:layout_marginLeft="100dp"/>
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="remove"-->
+            <!--android:id="@+id/remove"-->
+            <!--android:layout_marginLeft="100dp"/>-->
 
     </android.support.v7.widget.CardView>
 

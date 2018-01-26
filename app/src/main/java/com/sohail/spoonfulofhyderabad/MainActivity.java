@@ -2,9 +2,11 @@ package com.sohail.spoonfulofhyderabad;
 
 import android.*;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -16,12 +18,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,6 +47,18 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
@@ -64,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     private DiscreteScrollView itemPicker;
     Button logoutBtn,remove;
     FirebaseAuth auth;
+    private AccountHeader headerResult = null;
+    private Drawer result = null;
 
     Hotels_model hotels;
 
@@ -102,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         auth=FirebaseAuth.getInstance();
         if(auth.getCurrentUser() !=null)
@@ -160,9 +182,9 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                 }
             }
         });
-
-        logoutBtn=(Button)findViewById(R.id.logout_btn);
-        remove=(Button)findViewById(R.id.remove);
+//
+//        logoutBtn=(Button)findViewById(R.id.logout_btn);
+//        remove=(Button)findViewById(R.id.remove);
 //        logoutBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -209,6 +231,77 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         populateGeofenceList();
 
         mGeofencingClient = LocationServices.getGeofencingClient(this);
+
+
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Glide.with(imageView.getContext()).load(uri) .apply(new RequestOptions().placeholder(placeholder)).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Glide.with(imageView).clear(imageView);
+            }
+
+            @Override
+            public Drawable placeholder(Context ctx, String tag) {
+                //define different placeholders for different imageView targets
+                //default tags are accessible via the DrawerImageLoader.Tags
+                //custom ones can be checked via string. see the CustomUrlBasePrimaryDrawerItem LINE 111
+                if (DrawerImageLoader.Tags.PROFILE.name().equals(tag)) {
+                    return DrawerUIUtils.getPlaceHolder(ctx);
+                } else if (DrawerImageLoader.Tags.ACCOUNT_HEADER.name().equals(tag)) {
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(com.mikepenz.materialdrawer.R.color.primary).sizeDp(56);
+                } else if ("customUrlItem".equals(tag)) {
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(R.color.md_red_500).sizeDp(56);
+                }
+
+                //we use the default one for
+                //DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name()
+
+                return super.placeholder(ctx, tag);
+            }
+        });
+
+        final IProfile profile = new ProfileDrawerItem().withName(auth.getCurrentUser().getDisplayName()).withEmail(auth.getCurrentUser().getEmail()).withIcon(auth.getCurrentUser().getPhotoUrl()).withIdentifier(1);
+        headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withTranslucentStatusBar(true)
+                .withHeaderBackground(R.drawable.gradient)
+                .addProfiles(profile)
+                .withSavedInstance(savedInstanceState)
+                .build();
+
+        result = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withHasStableIds(true)
+                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName("Home").withDescription("deals").withIcon(R.drawable.icon_home).withIdentifier(2).withSelectable(false),
+                        new PrimaryDrawerItem().withName("Spoonfull Of Hyd").withDescription("visit").withIcon(R.drawable.icon_insta).withIdentifier(3).withSelectable(false),
+                        new PrimaryDrawerItem().withName("About").withDescription("details").withIcon(R.drawable.icon_about).withIdentifier(4).withSelectable(false)
+                )
+//                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+//                    @Override
+//                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+//
+//                        if (drawerItem != null) {
+//                            Intent intent = null;
+//                            if (drawerItem.getIdentifier() == 1) {
+//                                intent = new Intent(MainActivity.this, CompactHeaderDrawerActivity.class);
+//                            } else if (drawerItem.getIdentifier() == 2) {
+//                                intent = new Intent(DrawerActivity.this, ActionBarActivity.class);
+//                            } else if (drawerItem.getIdentifier() == 3) {
+//                                intent = new Intent(DrawerActivity.this, MultiDrawerActivity.class);
+//                            }
+//                        return false;
+//                    }
+//                })
+                .withSavedInstance(savedInstanceState)
+                .build();
+
 
 
 
@@ -365,13 +458,13 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     }
 
     private void setButtonsEnabledState() {
-        if (getGeofencesAdded()) {
-            logoutBtn.setEnabled(false);
-            remove.setEnabled(true);
-        } else {
-            logoutBtn.setEnabled(true);
-            remove.setEnabled(false);
-        }
+//        if (getGeofencesAdded()) {
+//            logoutBtn.setEnabled(false);
+//            remove.setEnabled(true);
+//        } else {
+//            logoutBtn.setEnabled(true);
+//            remove.setEnabled(false);
+//        }
     }
 
     /**
