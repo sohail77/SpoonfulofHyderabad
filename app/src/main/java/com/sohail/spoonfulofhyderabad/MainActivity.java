@@ -1,6 +1,7 @@
 package com.sohail.spoonfulofhyderabad;
 
 import android.*;
+import android.animation.Animator;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -23,16 +25,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
@@ -62,28 +61,25 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements DiscreteScrollView.OnItemChangedListener,
         View.OnClickListener,OnCompleteListener<Void>{
 
 //    private static final String TAG ="Firelog" ;
     private static final int RC_SIGN_IN = 1;
-    protected GoogleApiClient mGoogleApiClient;
-    private Button mAddGeofencesButton;
     private FirebaseFirestore mFirestore;
     private List<Hotels_model> hotel_lists;
     private Hotel_adatpters hotel_adatpters;
     private DiscreteScrollView itemPicker;
-    Button logoutBtn,remove;
     FirebaseAuth auth;
     private AccountHeader headerResult = null;
     private Drawer result = null;
+    List<Category_item> categoryItems=new ArrayList<>();
+    RecyclerView category_rv;
+    Category_adapter mCatergoryAdapter;
 
     Hotels_model hotels;
 
@@ -113,24 +109,56 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
      */
     private PendingIntent mGeofencePendingIntent;
     private PendingGeofenceTask mPendingGeofenceTask = PendingGeofenceTask.NONE;
-
-
-
-
+    LottieAnimationView animationView;
+    LinearLayout linearLayout;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        linearLayout=(LinearLayout)findViewById(R.id.linear);
+        category_rv=(RecyclerView)findViewById(R.id.category_rv);
+        animationView=(LottieAnimationView)findViewById(R.id.animation_view_main);
+        animationView.setAnimation("simple.json");
+        animationView.playAnimation();
+        animationView.setRepeatCount(3);
+        animationView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+
+                animationView.setVisibility(View.GONE);
+                linearLayout.setVisibility(View.VISIBLE);
+
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
 
         auth=FirebaseAuth.getInstance();
         if(auth.getCurrentUser() !=null)
         {
-//            Toast.makeText(this,"Welcome "+auth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
-
+            addDrawer();
         }else {
+
             startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
@@ -139,8 +167,10 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                                             new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
                                     ))
                             .setTheme(R.style.IntroScreen)
+                            .setIsSmartLockEnabled(false)
                             .build(),
                     RC_SIGN_IN);
+
         }
 
 
@@ -181,44 +211,8 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                     addGeofences();
                 }
             }
+
         });
-//
-//        logoutBtn=(Button)findViewById(R.id.logout_btn);
-//        remove=(Button)findViewById(R.id.remove);
-//        logoutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                AuthUI.getInstance().signOut(MainActivity.this)
-////                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-////                            @Override
-////                            public void onComplete(@NonNull Task<Void> task) {
-////                                finish();
-////                            }
-////                        });
-//                if (!checkPermissions()) {
-//                    mPendingGeofenceTask = PendingGeofenceTask.ADD;
-//                    requestPermissions();
-//                    return;
-//                }
-//                addGeofences();
-//            }
-//        });
-//
-//
-//        remove.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (!checkPermissions()) {
-//                    mPendingGeofenceTask = PendingGeofenceTask.REMOVE;
-//                    requestPermissions();
-//                    return;
-//                }
-//                removeGeofences();
-//            }
-//        });
-
-
-
 
         // Empty list for storing geofences.
         mGeofenceList = new ArrayList<>();
@@ -232,7 +226,32 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
 
         mGeofencingClient = LocationServices.getGeofencingClient(this);
 
+        dummyData();
 
+        mCatergoryAdapter=new Category_adapter(categoryItems,this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        category_rv.setLayoutManager(mLayoutManager);
+        category_rv.setAdapter(mCatergoryAdapter);
+
+
+    }
+
+    public void setStatusBarColor(@ColorInt int color){
+        result.getDrawerLayout().setStatusBarBackgroundColor(color);
+    }
+
+    void dummyData(){
+        Category_item item=new Category_item("https://burst.shopifycdn.com/photos/bowls-of-cereal_925x@2x.jpg","Buffet Deals");
+        categoryItems.add(item);
+        item=new Category_item("https://burst.shopifycdn.com/photos/turkey-dinner-setting_925x@2x.jpg","Non-Veg Deals");
+        categoryItems.add(item);
+        item=new Category_item("https://burst.shopifycdn.com/photos/kale-salad_925x@2x.jpg","Veg Deals");
+        categoryItems.add(item);
+        item=new Category_item("https://burst.shopifycdn.com/photos/smiling-family-festivities_925x@2x.jpg","Family Deals");
+        categoryItems.add(item);
+
+    }
+    void addDrawer(){
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder) {
@@ -264,14 +283,18 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
             }
         });
 
-        final IProfile profile = new ProfileDrawerItem().withName(auth.getCurrentUser().getDisplayName()).withEmail(auth.getCurrentUser().getEmail()).withIcon(auth.getCurrentUser().getPhotoUrl()).withIdentifier(1);
-        headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withTranslucentStatusBar(true)
-                .withHeaderBackground(R.drawable.gradient)
-                .addProfiles(profile)
-                .withSavedInstance(savedInstanceState)
-                .build();
+         final IProfile   profile= new ProfileDrawerItem().withName(auth.getCurrentUser().getDisplayName()).withEmail(auth.getCurrentUser().getEmail()).withIcon(auth.getCurrentUser().getPhotoUrl()).withIdentifier(1);
+
+
+            headerResult = new AccountHeaderBuilder()
+                    .withActivity(this)
+                    .withTranslucentStatusBar(true)
+                    .withHeaderBackground(R.drawable.gradient)
+                    .addProfiles(profile)
+//                .withSavedInstance(savedInstanceState)
+                    .build();
+
+
 
         result = new DrawerBuilder()
                 .withActivity(this)
@@ -281,31 +304,43 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withDescription("deals").withIcon(R.drawable.icon_home).withIdentifier(2).withSelectable(false),
                         new PrimaryDrawerItem().withName("Spoonfull Of Hyd").withDescription("visit").withIcon(R.drawable.icon_insta).withIdentifier(3).withSelectable(false),
-                        new PrimaryDrawerItem().withName("About").withDescription("details").withIcon(R.drawable.icon_about).withIdentifier(4).withSelectable(false)
+                        new PrimaryDrawerItem().withName("About").withDescription("details").withIcon(R.drawable.icon_about).withIdentifier(4).withSelectable(false),
+                        new PrimaryDrawerItem().withName("Logout").withIcon(R.drawable.icon_logout).withIdentifier(5).withSelectable(false)
                 )
-//                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-//                    @Override
-//                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-//
-//                        if (drawerItem != null) {
-//                            Intent intent = null;
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+
+                        if (drawerItem != null) {
+                            Intent intent = null;
 //                            if (drawerItem.getIdentifier() == 1) {
-//                                intent = new Intent(MainActivity.this, CompactHeaderDrawerActivity.class);
-//                            } else if (drawerItem.getIdentifier() == 2) {
-//                                intent = new Intent(DrawerActivity.this, ActionBarActivity.class);
-//                            } else if (drawerItem.getIdentifier() == 3) {
-//                                intent = new Intent(DrawerActivity.this, MultiDrawerActivity.class);
+////                                intent = new Intent(MainActivity.this, CompactHeaderDrawerActivity.class);
+//                                Toast.makeText(this,"home",Toast.LENGTH_LONG).show();
 //                            }
-//                        return false;
-//                    }
-//                })
-                .withSavedInstance(savedInstanceState)
+                            if (drawerItem.getIdentifier() == 3) {
+                                intent = new Intent(MainActivity.this, WebView_Activity.class);
+                                startActivity(intent);
+                            } else if (drawerItem.getIdentifier() == 5) {
+                                AuthUI.getInstance().signOut(MainActivity.this)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Intent i=new Intent(MainActivity.this,Get_Started_Activity.class);
+                                                startActivity(i);
+                                                finish();
+                                            }
+                                        });
+
+                            }
+
+                        }
+                        return false;
+                    }
+                })
+//                .withSavedInstance(savedInstanceState)
                 .build();
 
-
-
-
-
+        setStatusBarColor(getResources().getColor(R.color.status));
 
     }
 
@@ -609,6 +644,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         if(requestCode==RC_SIGN_IN){
             if(resultCode==RESULT_OK){
                 Toast.makeText(this,"Welcome "+auth.getCurrentUser().getDisplayName(),Toast.LENGTH_LONG).show();
+                addDrawer();
             }
         }
     }

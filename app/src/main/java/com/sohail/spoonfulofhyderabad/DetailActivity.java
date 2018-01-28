@@ -132,18 +132,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         this.expectAnim = new ExpectAnim()
                 .expect(imageView)
                 .toBe(

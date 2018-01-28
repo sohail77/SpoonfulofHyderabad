@@ -11,7 +11,7 @@
     <style name="listtheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@android:color/white</item>
         <item name="colorAccent">@color/shopAccent</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">#000 </item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">#000000 </item>
 
         <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
     </style>
