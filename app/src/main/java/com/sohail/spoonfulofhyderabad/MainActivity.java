@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
@@ -16,14 +17,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +36,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
+import com.github.florent37.expectanim.ExpectAnim;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
@@ -58,12 +63,22 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.Orientation;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.github.florent37.expectanim.core.Expectations.alpha;
+import static com.github.florent37.expectanim.core.Expectations.height;
+import static com.github.florent37.expectanim.core.Expectations.leftOfParent;
+import static com.github.florent37.expectanim.core.Expectations.rightOfParent;
+import static com.github.florent37.expectanim.core.Expectations.sameCenterVerticalAs;
+import static com.github.florent37.expectanim.core.Expectations.scale;
+import static com.github.florent37.expectanim.core.Expectations.toRightOf;
+import static com.github.florent37.expectanim.core.Expectations.topOfParent;
 
 public class MainActivity extends AppCompatActivity implements DiscreteScrollView.OnItemChangedListener,
         View.OnClickListener,OnCompleteListener<Void>{
@@ -80,8 +95,14 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     List<Category_item> categoryItems=new ArrayList<>();
     RecyclerView category_rv;
     Category_adapter mCatergoryAdapter;
-
+    ExpectAnim expectAnim;
+    NestedScrollView scrollView;
+    TextView title_txt;
+    ImageView background;
+    View Background;
+    CircularImageView logo_img;
     Hotels_model hotels;
+    FrameLayout frame;
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -120,6 +141,13 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        title_txt=(TextView)findViewById(R.id.title_txt);
+        scrollView=(NestedScrollView)findViewById(R.id.main_scroll);
+        logo_img=(CircularImageView) findViewById(R.id.logo);
+        background=(ImageView)findViewById(R.id.back);
+        Background=(View)findViewById(R.id.background);
+        frame=(FrameLayout)findViewById(R.id.frame);
         linearLayout=(LinearLayout)findViewById(R.id.linear);
         category_rv=(RecyclerView)findViewById(R.id.category_rv);
         animationView=(LottieAnimationView)findViewById(R.id.animation_view_main);
@@ -137,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
 
                 animationView.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.VISIBLE);
-
+                frame.setVisibility(View.VISIBLE);
 
             }
 
@@ -182,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         itemPicker.addOnItemChangedListener(this);
         itemPicker.setAdapter(hotel_adatpters);
         itemPicker.setItemTransitionTimeMillis(150);
+        itemPicker.addItemDecoration(new RecylerItemDecorator());
         itemPicker.setItemTransformer(new ScaleTransformer.Builder()
                 .setMinScale(0.6f)
                 .build());
@@ -234,7 +263,76 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         category_rv.setAdapter(mCatergoryAdapter);
 
 
+
+
+        this.expectAnim = new ExpectAnim()
+                .expect(logo_img)
+                .toBe(
+                        topOfParent().withMarginDp(5),
+
+                        leftOfParent().withMarginDp(50),
+                        scale(0.35f, 0.35f)
+                )
+
+//                .expect(title_txt)
+//                .toBe(
+//                        toRightOf(logo_img).withMarginDp(16),
+//                        sameCenterVerticalAs(logo_img),
+//
+//                        alpha(0.5f)
+//                )
+
+                .expect(title_txt)
+                .toBe(
+                        rightOfParent().withMarginDp(20),
+                        sameCenterVerticalAs(logo_img)
+                )
+                .expect(background)
+                .toBe(
+                        height(0).withGravity(Gravity.LEFT,Gravity.TOP)
+                )
+                .expect(Background)
+                .toBe(
+                        height(210).withGravity(Gravity.LEFT, Gravity.TOP)
+                )
+
+                .toAnimation();
+
+
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                final float percent = (scrollY * 1f) / v.getMaxScrollAmount();
+                expectAnim.setPercent(percent);
+            }
+        });
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void setStatusBarColor(@ColorInt int color){
         result.getDrawerLayout().setStatusBarBackgroundColor(color);
@@ -251,6 +349,24 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         categoryItems.add(item);
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     void addDrawer(){
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override

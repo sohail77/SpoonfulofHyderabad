@@ -27,11 +27,25 @@
             android:layout_height="wrap_content"
             android:textStyle="italic"
             android:textSize="30sp"
+            android:gravity="center"
             android:layout_margin="45dp"
             android:textColor="@android:color/white"
             android:text="Buffet Deals"
             android:id="@+id/Category_viewer_txt"/>
 
+        <View
+            android:id="@+id/SplitLine_hor2"
+            android:layout_width="100dp"
+            android:layout_height= "2dp"
+            android:background="@android:color/white"
+            android:layout_marginTop="90dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/item_picker_cat"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 </LinearLayout>

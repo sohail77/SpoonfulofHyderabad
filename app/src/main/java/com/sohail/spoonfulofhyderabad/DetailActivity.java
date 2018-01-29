@@ -41,7 +41,6 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG = DetailActivity.class.getSimpleName();
     TextView nameText,type_text;
     CircularImageView imageView;
-    private FabOptions mfabOptions;
     AppCompatButton button;
     ExpectAnim expectAnim;
     int height ;
