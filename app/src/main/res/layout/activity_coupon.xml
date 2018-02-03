@@ -30,7 +30,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/coupon_frame">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -44,6 +45,7 @@
     <com.dynamitechetan.fogviewlibrary.FogView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/fog"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

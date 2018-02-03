@@ -23,7 +23,9 @@
     <style name="detailTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimaryDark">@android:color/white</item>
     <item name="colorAccent">@color/shopAccent</item>
-    <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/white </item>
+    <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/black </item>
+
+
     </style>
 
     <style name="IntroScreen" parent="Theme.AppCompat.Light.NoActionBar">

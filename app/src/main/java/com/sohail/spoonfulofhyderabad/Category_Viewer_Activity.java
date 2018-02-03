@@ -52,7 +52,7 @@ public class Category_Viewer_Activity extends AppCompatActivity implements Discr
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.shared_element_transition));
-            imageView.setTransitionName("image_transi");
+            textView.setTransitionName("image_transi");
         }
 
         textView.setText(name);

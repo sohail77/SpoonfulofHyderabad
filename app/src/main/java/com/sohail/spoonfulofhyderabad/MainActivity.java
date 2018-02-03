@@ -2,6 +2,7 @@ package com.sohail.spoonfulofhyderabad;
 
 import android.*;
 import android.animation.Animator;
+import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -10,13 +11,16 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +28,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -103,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     CircularImageView logo_img;
     Hotels_model hotels;
     FrameLayout frame;
+    Button find_btn;
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -151,6 +157,14 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         linearLayout=(LinearLayout)findViewById(R.id.linear);
         category_rv=(RecyclerView)findViewById(R.id.category_rv);
         animationView=(LottieAnimationView)findViewById(R.id.animation_view_main);
+        find_btn=(Button)findViewById(R.id.find_btn);
+
+
+
+
+
+
+
         animationView.setAnimation("simple.json");
         animationView.playAnimation();
         animationView.setRepeatCount(3);
@@ -192,7 +206,8 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                             .createSignInIntentBuilder()
                             .setAvailableProviders(
                                     Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
+                                            new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                                            new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build()
                                     ))
                             .setTheme(R.style.IntroScreen)
                             .setIsSmartLockEnabled(false)
@@ -308,6 +323,14 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         });
 
 
+        find_btn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                Intent findintent=new Intent(MainActivity.this,BudgetFinderActivity.class);
+                startActivity(findintent);
+            }
+        });
 
 
     }

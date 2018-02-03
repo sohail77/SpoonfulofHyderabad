@@ -19,37 +19,30 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.util.List;
 
 /**
- * Created by SOHAIL on 29/01/18.
+ * Created by SOHAIL on 03/02/18.
  */
 
-public class Category_list_item_adapter extends RecyclerView.Adapter<Category_list_item_adapter.ViewHolder> {
-
+public class Budget_Item_Adapter extends RecyclerView.Adapter<Budget_Item_Adapter.ViewHolder> {
 
 
     public List<Hotels_model> hotels;
     Context context;
 
-
-    public Category_list_item_adapter(Context context, List<Hotels_model> hotels) {
+    public Budget_Item_Adapter(List<Hotels_model> hotels, Context context) {
         this.hotels = hotels;
-        this.context=context;
-    }
-
-
-    @Override
-    public Category_list_item_adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item_card,parent,false);
-        return new Category_list_item_adapter.ViewHolder(view);
+        this.context = context;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public Budget_Item_Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.filter_item_layout,parent,false);
+        return new Budget_Item_Adapter.ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(final Budget_Item_Adapter.ViewHolder holder, final int position) {
         holder.nameText.setText(hotels.get(position).getName());
-        holder.address.setText(hotels.get(position).getAddress());
-        holder.type.setText(hotels.get(position).getType());
-
-//        holder.image.setText(hotels.get(position).getImage());
-        // holder.contact.setText((int) hotels.get(position).getContact());
+        holder.budget.setText("Budget:" +String.valueOf(hotels.get(position).getBudget()) +" approx" );
 
         Glide.with(holder.mView.getContext()).load(hotels.get(position).getImage()).into(holder.image);
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -59,14 +52,14 @@ public class Category_list_item_adapter extends RecyclerView.Adapter<Category_li
                 Intent i = new Intent(context,DetailActivity.class);
                 i.putExtra("image_link",hotels.get(position).getImage());
                 i.putExtra("name_string",hotels.get(position).getName());
+//                context.startActivity(i);
                 holder.image.setTransitionName("image_transition");
-                Pair<View,String> pair=Pair.create((View)holder.nameText,holder.nameText.getTransitionName());
+                Pair<View,String> pair=Pair.create((View)holder.image,holder.image.getTransitionName());
                 ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,pair);
                 context.startActivity(i,optionsCompat.toBundle());
 
             }
         });
-
     }
 
 
@@ -78,18 +71,14 @@ public class Category_list_item_adapter extends RecyclerView.Adapter<Category_li
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        public TextView nameText,address,type;
+        public TextView nameText,budget;
         public CircularImageView image;
         public ViewHolder(View itemView) {
             super(itemView);
             mView=itemView;
-            nameText=(TextView)mView.findViewById(R.id.name_in_cat);
-            address=(TextView)mView.findViewById(R.id.addre_in_cat);
-            type=(TextView)mView.findViewById(R.id.type_in_cat);
-            image=(CircularImageView) mView.findViewById(R.id.image_in_cat);
-//            contact=(TextView)mView.findViewById(R.id.contact);
-
+            nameText=(TextView)mView.findViewById(R.id.budget_item_name);
+            budget=(TextView)mView.findViewById(R.id.budget_item_price);
+            image=(CircularImageView) mView.findViewById(R.id.budget_item_image);
         }
     }
-
 }

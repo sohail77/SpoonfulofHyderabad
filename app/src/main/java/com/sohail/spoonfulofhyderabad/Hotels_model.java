@@ -11,6 +11,9 @@ import java.util.HashMap;
 
 public class Hotels_model {
     public String name,image,address,type;
+    int budget;
+
+
     public long contact;
     GeoPoint location;
     double lat,longitude;
@@ -53,6 +56,13 @@ public class Hotels_model {
     public String getAddress() {
 
         return address;
+    }
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
     }
 
     public double getLat() {

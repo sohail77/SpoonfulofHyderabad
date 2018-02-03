@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sohail.spoonfulofhyderabad.BudgetFinderActivity"
+    android:orientation="vertical"
+    android:id="@+id/linear_budget">
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        >
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:cardElevation="10dp"
+            android:id="@+id/card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#80cbc4">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Places Acc To Your Budget"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/carme"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp">
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="0dp"
+            app:mtf_cardCollapsedHeight="4dp"
+            app:mtf_hasFocus="false"
+            app:mtf_image="@drawable/icon_ppl"
+            app:mtf_openKeyboardOnFocus="true">
+
+            <!--
+            app:mtf_animationDuration="1000"
+            app:mtf_cardColor="@color/cardview_dark_background"
+            app:mtf_labelColor="@android:color/holo_red_dark"
+            app:mtf_openKeyboardOnFocus="true"
+            -->
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="people"
+                android:id="@+id/people_txt"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="15sp"
+                android:inputType="number"/>
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="0dp"
+        app:mtf_cardCollapsedHeight="4dp"
+        app:mtf_hasFocus="false"
+        app:mtf_image="@drawable/icon_amount"
+        app:mtf_openKeyboardOnFocus="true">
+
+        <!--
+        app:mtf_animationDuration="1000"
+        app:mtf_cardColor="@color/cardview_dark_background"
+        app:mtf_labelColor="@android:color/holo_red_dark"
+        app:mtf_openKeyboardOnFocus="true"
+        -->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount"
+            android:maxLines="1"
+            android:id="@+id/amount_txt"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="15sp"
+            android:inputType="number"/>
+
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:elevation="10dp"
+            android:id="@+id/fab"
+            android:layout_margin="10dp"
+            app:layout_anchor="@id/card"
+            app:layout_anchorGravity="right|bottom"
+            app:backgroundTint="#ffab91"
+            android:src="@drawable/icon_search"
+            android:scaleType="center"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/filter_rv"
+        android:visibility="gone">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Hotels Found"
+        android:gravity="center"
+        android:id="@+id/not_found_text"
+        android:textSize="30sp"
+        android:fontFamily="@font/carme"
+        android:visibility="gone"/>
+</LinearLayout>

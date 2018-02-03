@@ -34,6 +34,8 @@
         <activity
             android:name=".DetailActivity"
             android:theme="@style/detailTheme" />
+
+
         <activity
             android:name=".CouponActivity"
             android:theme="@style/listtheme" />
@@ -49,8 +51,9 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".WebView_Activity" />
-        <activity android:name=".Get_Started_Activity"></activity>
-        <activity android:name=".Category_Viewer_Activity"></activity>
+        <activity android:name=".Get_Started_Activity" />
+        <activity android:name=".Category_Viewer_Activity" />
+        <activity android:name=".BudgetFinderActivity"></activity>
     </application>
 
 </manifest>
