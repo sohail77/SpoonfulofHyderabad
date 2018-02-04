@@ -18,9 +18,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     CircularImageView logo_img;
     Hotels_model hotels;
     FrameLayout frame;
-    Button find_btn;
+
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
     LottieAnimationView animationView;
     LinearLayout linearLayout;
     Toolbar toolbar;
+    FloatingActionButton main_fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,14 +154,13 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         title_txt=(TextView)findViewById(R.id.title_txt);
         scrollView=(NestedScrollView)findViewById(R.id.main_scroll);
         logo_img=(CircularImageView) findViewById(R.id.logo);
-        background=(ImageView)findViewById(R.id.back);
+//        background=(ImageView)findViewById(R.id.back);
         Background=(View)findViewById(R.id.background);
         frame=(FrameLayout)findViewById(R.id.frame);
         linearLayout=(LinearLayout)findViewById(R.id.linear);
         category_rv=(RecyclerView)findViewById(R.id.category_rv);
         animationView=(LottieAnimationView)findViewById(R.id.animation_view_main);
-        find_btn=(Button)findViewById(R.id.find_btn);
-
+        main_fab=(FloatingActionButton)findViewById(R.id.main_fab);
 
 
 
@@ -180,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                 animationView.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.VISIBLE);
                 frame.setVisibility(View.VISIBLE);
+                main_fab.setVisibility(View.VISIBLE);
 
             }
 
@@ -302,10 +305,10 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                         rightOfParent().withMarginDp(20),
                         sameCenterVerticalAs(logo_img)
                 )
-                .expect(background)
-                .toBe(
-                        height(0).withGravity(Gravity.LEFT,Gravity.TOP)
-                )
+//                .expect(background)
+//                .toBe(
+//                        height(0).withGravity(Gravity.LEFT,Gravity.TOP)
+//                )
                 .expect(Background)
                 .toBe(
                         height(210).withGravity(Gravity.LEFT, Gravity.TOP)
@@ -323,29 +326,18 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         });
 
 
-        find_btn.setOnClickListener(new View.OnClickListener() {
+        main_fab.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 Intent findintent=new Intent(MainActivity.this,BudgetFinderActivity.class);
-                startActivity(findintent);
+                ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,main_fab, ViewCompat.getTransitionName(main_fab));
+                startActivity(findintent,optionsCompat.toBundle());
             }
         });
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -372,18 +364,6 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         categoryItems.add(item);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

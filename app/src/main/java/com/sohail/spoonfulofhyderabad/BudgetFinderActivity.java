@@ -1,10 +1,12 @@
 package com.sohail.spoonfulofhyderabad;
 
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -46,6 +48,11 @@ public class BudgetFinderActivity extends AppCompatActivity {
         amount_txt=(EditText)findViewById(R.id.amount_txt);
         not_found=(TextView)findViewById(R.id.not_found_text);
         fab=(FloatingActionButton)findViewById(R.id.fab);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.finder_transition));
+        }
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         hotel_lists=new ArrayList<>();
