@@ -47,6 +47,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.1.0'
     compile 'com.airbnb.android:lottie:2.5.0-beta3'
     compile 'com.github.florent37:materialtextfield:1.0.7'
+    compile 'com.stepstone.apprating:app-rating:2.2.0'
 
     // ...
     implementation 'com.firebaseui:firebase-ui-auth:3.1.3'

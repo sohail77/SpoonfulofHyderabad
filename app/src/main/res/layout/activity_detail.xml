@@ -204,6 +204,7 @@
                         android:layout_height="wrap_content"
                         android:text="JAN 01 to JAN 31 2018"
                         android:textStyle="bold"
+                        android:id="@+id/rating_text"
                         android:layout_marginLeft="4dp"/>
 
                     <TextView
