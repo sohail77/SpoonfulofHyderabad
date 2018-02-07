@@ -34,8 +34,6 @@
         <activity
             android:name=".DetailActivity"
             android:theme="@style/detailTheme" />
-
-
         <activity
             android:name=".CouponActivity"
             android:theme="@style/listtheme" />
@@ -53,7 +51,8 @@
         <activity android:name=".WebView_Activity" />
         <activity android:name=".Get_Started_Activity" />
         <activity android:name=".Category_Viewer_Activity" />
-        <activity android:name=".BudgetFinderActivity"></activity>
+        <activity android:name=".BudgetFinderActivity" />
+        <activity android:name=".Rating_viewer_Activity"></activity>
     </application>
 
 </manifest>

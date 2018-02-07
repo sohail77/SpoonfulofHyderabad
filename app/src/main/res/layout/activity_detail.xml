@@ -204,7 +204,6 @@
                         android:layout_height="wrap_content"
                         android:text="JAN 01 to JAN 31 2018"
                         android:textStyle="bold"
-                        android:id="@+id/rating_text"
                         android:layout_marginLeft="4dp"/>
 
                     <TextView
@@ -220,69 +219,77 @@
             </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/rating_layout">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
                 android:layout_weight="1"
-                android:layout_margin="10dp"
-                >
+                android:orientation="vertical"
+                android:transitionName="rating_transi">
 
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:layout_margin="14dp">
-
-
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_map_marker_black_48dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        />
-
-
-                </LinearLayout>
+                    android:text="Ratings &amp; Reviews"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/carme"
+                    android:gravity="center"
+                    android:layout_margin="2dp"/>
                 <View
-                    android:layout_width="2dp"
-                    android:layout_height= "100dp"
+                    android:layout_width="50dp"
+                    android:layout_height= "1dp"
                     android:layout_margin="2dp"
 
-                    android:background="@android:color/darker_gray"
+                    android:background="@android:color/black"
                     android:layout_gravity="center"/>
 
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
-
-                    <TextView
+                <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Address"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="4dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_margin="4dp"
+                        android:src="@drawable/icon_star"
                         android:layout_gravity="center"
-                        android:text="Shop 8-2-686/8/6/A, 12th Square, Road 12, Banjara Hills, Hyderabad"
+                        android:layout_marginTop="6dp"
                         />
-                </LinearLayout>
+
+                 <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3 out of 5 Stars"
+                        android:id="@+id/rating_text"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/carme"
+                        android:layout_gravity="center"
+                        />
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="4dp"-->
+                        <!--android:layout_gravity="right"-->
+                        <!--android:fontFamily="@font/carme"-->
+                        <!--android:text="See All "-->
+                        <!--/>-->
 
             </LinearLayout>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_arrow"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"/>
+
+    </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -7,19 +7,34 @@ package com.sohail.spoonfulofhyderabad;
 public class rating_model {
 
     int rating;
-    String comment,user,hotel,email;
+    String comment,User,hotel,email,image_url;
 
     public rating_model() {
     }
 
-    public rating_model(int rating, String comment, String user) {
-        this.rating = rating;
-        this.comment = comment;
-        this.user = user;
-    }
 
     public String getEmail() {
         return email;
+    }
+
+
+
+    public rating_model(int rating, String comment, String user, String hotel, String email, String image_url) {
+        this.rating = rating;
+        this.comment = comment;
+        User = user;
+        this.hotel = hotel;
+        this.email = email;
+        this.image_url = image_url;
+    }
+
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
     public void setEmail(String email) {
@@ -51,10 +66,10 @@ public class rating_model {
     }
 
     public String getUser() {
-        return user;
+        return User;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUser(String User) {
+        this.User = User;
     }
 }
