@@ -10,8 +10,10 @@ import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
@@ -34,7 +36,8 @@ public class BudgetFinderActivity extends AppCompatActivity {
     Hotels_model hotels;
     RecyclerView rv;
     CollectionReference ref;
-
+    ImageView finder_back_btn;
+    int budget;
     EditText people_txt,amount_txt;
     TextView not_found;
     int people,amount;
@@ -48,7 +51,7 @@ public class BudgetFinderActivity extends AppCompatActivity {
         amount_txt=(EditText)findViewById(R.id.amount_txt);
         not_found=(TextView)findViewById(R.id.not_found_text);
         fab=(FloatingActionButton)findViewById(R.id.fab);
-
+        finder_back_btn=(ImageView)findViewById(R.id.finder_back_btn_img);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.finder_transition));
@@ -66,36 +69,52 @@ public class BudgetFinderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 hotel_lists.clear();
                 hotel_adatpters.notifyDataSetChanged();
-                people = Integer.parseInt(people_txt.getText().toString());
-                amount = Integer.parseInt(amount_txt.getText().toString());
-                int budget = amount / people;
-                Query query = ref.whereLessThanOrEqualTo("budget", budget);
-                query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.d(TAG, "Error : " + e.getMessage());
-                        }
-                        for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
+                if ((!people_txt.getText().toString().equals("")) && (!amount_txt.getText().toString().equals(""))) {
 
-                            if (doc.getType() == DocumentChange.Type.ADDED) {
+                    people = Integer.parseInt(people_txt.getText().toString());
+                    amount = Integer.parseInt(amount_txt.getText().toString());
+                    budget = amount / people;
+                    Query query = ref.whereLessThanOrEqualTo("budget", budget);
+                    query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                            if (e != null) {
+                                Log.d(TAG, "Error : " + e.getMessage());
+                            }
+                            for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
 
-                                hotels = doc.getDocument().toObject(Hotels_model.class);
-                                hotel_lists.add(hotels);
-                                hotel_adatpters.notifyDataSetChanged();
+                                if (doc.getType() == DocumentChange.Type.ADDED) {
+
+                                    hotels = doc.getDocument().toObject(Hotels_model.class);
+                                    hotel_lists.add(hotels);
+                                    hotel_adatpters.notifyDataSetChanged();
 
 
+                                }
+                            }
+                            if (hotel_adatpters.getItemCount() == 0) {
+                                not_found.setVisibility(View.VISIBLE);
+                            } else {
+                                not_found.setVisibility(View.GONE);
+                                rv.setVisibility(View.VISIBLE);
                             }
                         }
-                        if(hotel_adatpters.getItemCount()==0)
-                        {
-                            not_found.setVisibility(View.VISIBLE);
-                        }else {
-                            not_found.setVisibility(View.GONE);
-                            rv.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
+                    });
+                }else {
+                    Toast.makeText(BudgetFinderActivity.this,"Enter the details",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            });
+
+
+
+
+
+        finder_back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

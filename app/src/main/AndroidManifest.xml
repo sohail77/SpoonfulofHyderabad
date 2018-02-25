@@ -52,7 +52,11 @@
         <activity android:name=".Get_Started_Activity" />
         <activity android:name=".Category_Viewer_Activity" />
         <activity android:name=".BudgetFinderActivity" />
-        <activity android:name=".Rating_viewer_Activity"></activity>
+        <activity android:name=".Rating_viewer_Activity" />
+        <activity
+            android:name=".Offers_Activity"
+            android:label="@string/title_activity_offers_"
+            android:theme="@style/listtheme" />
     </application>
 
 </manifest>

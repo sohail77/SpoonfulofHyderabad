@@ -11,6 +11,7 @@ import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class Rating_viewer_Activity extends AppCompatActivity implements RatingD
     FloatingActionButton review_fab;
     FirebaseAuth auth;
     String name;
+    ImageView back_btn;
 
 
 
@@ -63,13 +65,14 @@ public class Rating_viewer_Activity extends AppCompatActivity implements RatingD
         Empty_text=(TextView)findViewById(R.id.reviews_not_found_text);
         rating_rv=(RecyclerView)findViewById(R.id.reviews_rv);
         review_fab=(FloatingActionButton)findViewById(R.id.review_add_fab);
+        back_btn=(ImageView)findViewById(R.id.back_btn_img);
 
         auth=FirebaseAuth.getInstance();
         AvgRating_text.setText(String.valueOf(AvgRating)+" out of 5 Stars");
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.finder_transition));
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.finder_transition));
+        }
         rating_rv.setLayoutManager(new LinearLayoutManager(this));
         review_list=new ArrayList<>();
         ratingAdapter=new rating_adapter(review_list,Rating_viewer_Activity.this);
@@ -107,7 +110,12 @@ public class Rating_viewer_Activity extends AppCompatActivity implements RatingD
                 showDialog();
             }
         });
-
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 

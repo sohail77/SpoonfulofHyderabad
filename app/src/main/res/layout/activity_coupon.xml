@@ -13,45 +13,77 @@
 
    <android.support.v7.widget.CardView
        android:layout_width="match_parent"
-       android:layout_height="400dp"
-       app:cardElevation="5dp"
-       app:cardBackgroundColor="#ec8c69">
+       android:layout_height="500dp"
+       app:cardElevation="2dp"
+       android:backgroundTint="#536DFE"
+       >
 
-       <TextView
+       <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           android:text="Scratch below to view the coupon"
-           android:textStyle="bold"
-           android:gravity="center"
-           android:textSize="25sp"
-           />
+           android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Coupon Code"
+            android:fontFamily="@font/carme"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="5dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/coupon_txt"
+               android:textStyle="bold"
+               android:fontFamily="@font/carme"
+               android:gravity="center"
+               android:textColor="@android:color/white"
+               android:textSize="32sp"
+               android:visibility="visible"
+               />
+
+           <com.airbnb.lottie.LottieAnimationView
+               android:id="@+id/animation_view_coupon"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:lottie_fileName="newAnimation.json"
+               android:visibility="gone"
+               android:layout_gravity="center"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Congratulations!"
+               android:gravity="center"
+               android:textColor="@android:color/white"
+               android:textSize="18sp"
+               android:visibility="gone"
+               android:id="@+id/congo_txt"/>
+
+       </LinearLayout>
+
+
+
 
    </android.support.v7.widget.CardView>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/coupon_frame">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HHFAAQ"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="75sp"
-        />
-
-
-    <com.dynamitechetan.fogviewlibrary.FogView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fog"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        fog:fog_image="@drawable/fog_dense"
-        fog:stroke_width="100" />
-    </FrameLayout>
+    <com.ncorti.slidetoact.SlideToActView
+        android:id="@+id/slide_coupon"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        app:area_margin="4dp"
+        app:outer_color="#536DFE"
+        app:inner_color="@android:color/white"
+        app:text="Slide to unlock Coupon"
+        app:text_size="12sp"
+        app:slider_height="60dp"
+        app:slider_locked="false" />
 
 
 </LinearLayout>

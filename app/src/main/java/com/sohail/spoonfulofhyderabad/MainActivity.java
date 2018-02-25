@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         main_fab=(FloatingActionButton)findViewById(R.id.main_fab);
 
 
-
+        ViewCompat.setNestedScrollingEnabled(category_rv,false);
 
 
 

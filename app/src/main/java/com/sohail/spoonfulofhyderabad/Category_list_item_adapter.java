@@ -60,7 +60,7 @@ public class Category_list_item_adapter extends RecyclerView.Adapter<Category_li
                 i.putExtra("image_link",hotels.get(position).getImage());
                 i.putExtra("name_string",hotels.get(position).getName());
                 holder.image.setTransitionName("image_transition");
-                Pair<View,String> pair=Pair.create((View)holder.nameText,holder.nameText.getTransitionName());
+                Pair<View,String> pair=Pair.create((View)holder.image,holder.image.getTransitionName());
                 ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,pair);
                 context.startActivity(i,optionsCompat.toBundle());
 

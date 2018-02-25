@@ -11,7 +11,7 @@
     <style name="listtheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@android:color/white</item>
         <item name="colorAccent">@color/shopAccent</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">#000000 </item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">#000000</item>
 
         <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
     </style>
@@ -19,11 +19,10 @@
     <color name="shopAccent">#84ceca</color>
 
 
-
     <style name="detailTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimaryDark">@android:color/white</item>
-    <item name="colorAccent">@color/shopAccent</item>
-    <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/white</item>
+        <item name="colorAccent">@color/shopAccent</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/black</item>
 
         <!-- Assign dialog style here. -->
         <item name="alertDialogTheme">@style/MyAlertDialogStyle</item>
@@ -38,14 +37,12 @@
     </style>
 
     <style name="IntroScreen" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimaryDark">@android:color/white</item>
-    <item name="android:windowBackground">@drawable/gradient</item>
+        <item name="colorPrimaryDark">@android:color/white</item>
+        <item name="android:windowBackground">@drawable/gradient</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">#ec8c69</item>
 
 
     </style>
-
-
 
 
     <!-- Dialog -->
@@ -63,13 +60,13 @@
     </style>
 
     <!--<style name="MyDialogSlideHorizontalAnimation">-->
-        <!--<item name="android:windowEnterAnimation">@anim/slide_left</item>-->
-        <!--<item name="android:windowExitAnimation">@anim/slide_right</item>-->
+    <!--<item name="android:windowEnterAnimation">@anim/slide_left</item>-->
+    <!--<item name="android:windowExitAnimation">@anim/slide_right</item>-->
     <!--</style>-->
 
     <!--<style name="MyDialogSlideVerticalAnimation">-->
-        <!--<item name="android:windowEnterAnimation">@anim/slide_up</item>-->
-        <!--<item name="android:windowExitAnimation">@anim/slide_down</item>-->
+    <!--<item name="android:windowEnterAnimation">@anim/slide_up</item>-->
+    <!--<item name="android:windowExitAnimation">@anim/slide_down</item>-->
     <!--</style>-->
 
     <style name="MyDialogFadeAnimation">
@@ -96,4 +93,8 @@
         <item name="android:textColor">#FF00FF</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="listtheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="listtheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

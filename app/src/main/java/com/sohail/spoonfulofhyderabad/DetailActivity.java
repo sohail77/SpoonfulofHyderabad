@@ -14,6 +14,7 @@ import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,7 @@ public class DetailActivity extends AppCompatActivity {
     String name;
     Boolean alreadyReviewd=false;
     LinearLayout rating_layout;
+    ImageView star_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,7 @@ public class DetailActivity extends AppCompatActivity {
         type_text=(TextView)findViewById(R.id.type);
         imageView=(CircularImageView)findViewById(R.id.detail_image);
         rating_layout=(LinearLayout)findViewById(R.id.rating_layout);
+        star_img=(ImageView)findViewById(R.id.star_img);
         rating_text=(TextView)findViewById(R.id.rating_text);
         name=getIntent().getStringExtra("name_string");
         final String image_link=getIntent().getStringExtra("image_link");
@@ -153,7 +156,8 @@ public class DetailActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(DetailActivity.this,CouponActivity.class);
+                Intent i=new Intent(DetailActivity.this,Offers_Activity.class);
+                i.putExtra("hotel_name",name);
                 startActivity(i);
 //                showDialog();
             }
@@ -209,8 +213,8 @@ public class DetailActivity extends AppCompatActivity {
                 Intent i=new Intent(DetailActivity.this,Rating_viewer_Activity.class);
                 i.putExtra("name",name);
                 i.putExtra("AvgRating",AvgRating);
-//                ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation(DetailActivity.this,rating_layout, ViewCompat.getTransitionName(rating_layout));
-                startActivity(i);
+                ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation(DetailActivity.this,star_img, ViewCompat.getTransitionName(star_img));
+                startActivity(i,optionsCompat.toBundle());
             }
         });
 

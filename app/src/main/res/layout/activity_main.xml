@@ -150,8 +150,9 @@
         android:id="@+id/main_fab"
         android:src="@drawable/icon_search"
         android:scaleType="center"
+        app:borderWidth="0dp"
         android:visibility="gone"
-        android:backgroundTint="#80cbc4"
+        android:backgroundTint="#536DFE"
         android:transitionName="main_fab_transi"/>
 
 </FrameLayout>
