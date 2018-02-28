@@ -57,6 +57,7 @@
             android:name=".Offers_Activity"
             android:label="@string/title_activity_offers_"
             android:theme="@style/listtheme" />
+        <activity android:name=".Profile_Activity"></activity>
     </application>
 
 </manifest>

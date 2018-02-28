@@ -1,11 +1,13 @@
 package com.sohail.spoonfulofhyderabad;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -27,6 +29,7 @@ public class Offers_Activity extends AppCompatActivity {
     private List<offers_model> offers_list;
     private offer_item_adapter offerAdapter;
     offers_model offers;
+    ImageView back_image;
     RecyclerView rv;
     String name;
     TextView emptyTxt;
@@ -36,6 +39,7 @@ public class Offers_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_offers_);
         name=getIntent().getStringExtra("hotel_name");
         emptyTxt=(TextView)findViewById(R.id.emptyTxt);
+        back_image=(ImageView)findViewById(R.id.back_image);
         rv=(RecyclerView)findViewById(R.id.offer_rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         mFirestore=FirebaseFirestore.getInstance();
@@ -64,6 +68,13 @@ public class Offers_Activity extends AppCompatActivity {
                     emptyTxt.setVisibility(View.VISIBLE);
                 }
 
+            }
+        });
+
+        back_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

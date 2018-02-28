@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sohail.spoonfulofhyderabad.Offers_Activity">
+    tools:context="com.sohail.spoonfulofhyderabad.Offers_Activity"
+    android:orientation="vertical">
 
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/icon_x"
+        android:layout_margin="10dp"
+        android:id="@+id/back_image"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OFFERS"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_margin="5dp"
+        android:textSize="20sp"/>
+
+</LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,4 +51,4 @@
         android:visibility="gone"/>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

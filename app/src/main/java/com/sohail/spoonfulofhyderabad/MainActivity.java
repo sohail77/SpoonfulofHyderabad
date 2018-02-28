@@ -421,10 +421,11 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                 .withHasStableIds(true)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home").withDescription("deals").withIcon(R.drawable.icon_home).withIdentifier(2).withSelectable(false),
+                        new PrimaryDrawerItem().withName("Profile").withDescription("your coupons").withIcon(R.drawable.icon_profile_avatar).withIdentifier(5).withSelectable(false),
+//                        new PrimaryDrawerItem().withName("Home").withDescription("deals").withIcon(R.drawable.icon_home).withIdentifier(2).withSelectable(false),
                         new PrimaryDrawerItem().withName("Spoonfull Of Hyd").withDescription("visit").withIcon(R.drawable.icon_insta).withIdentifier(3).withSelectable(false),
                         new PrimaryDrawerItem().withName("About").withDescription("details").withIcon(R.drawable.icon_about).withIdentifier(4).withSelectable(false),
-                        new PrimaryDrawerItem().withName("Logout").withIcon(R.drawable.icon_logout).withIdentifier(5).withSelectable(false)
+                        new PrimaryDrawerItem().withName("Logout").withIcon(R.drawable.icon_logout).withIdentifier(6).withSelectable(false)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -439,7 +440,11 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
                             if (drawerItem.getIdentifier() == 3) {
                                 intent = new Intent(MainActivity.this, WebView_Activity.class);
                                 startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 5) {
+                            }else if(drawerItem.getIdentifier()==5){
+                                Intent profile=new Intent(MainActivity.this,Profile_Activity.class);
+                                startActivity(profile);
+
+                            }else if (drawerItem.getIdentifier() == 6) {
                                 AuthUI.getInstance().signOut(MainActivity.this)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
