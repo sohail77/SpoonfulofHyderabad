@@ -32,32 +32,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".Activities.DetailActivity"
             android:theme="@style/detailTheme" />
         <activity
-            android:name=".CouponActivity"
+            android:name=".Activities.CouponActivity"
             android:theme="@style/listtheme" />
 
         <receiver
-            android:name=".GeofenceBroadcastReceiver"
+            android:name=".Geofence.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
 
         <service
-            android:name=".GeofenceTransitionsJobIntentService"
+            android:name=".Geofence.GeofenceTransitionsJobIntentService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <activity android:name=".WebView_Activity" />
-        <activity android:name=".Get_Started_Activity" />
-        <activity android:name=".Category_Viewer_Activity" />
-        <activity android:name=".BudgetFinderActivity" />
-        <activity android:name=".Rating_viewer_Activity" />
+        <activity android:name=".Activities.WebView_Activity" />
+        <activity android:name=".Activities.Get_Started_Activity" />
+        <activity android:name=".Activities.Category_Viewer_Activity" />
+        <activity android:name=".Activities.BudgetFinderActivity" />
+        <activity android:name=".Activities.Rating_viewer_Activity" />
         <activity
-            android:name=".Offers_Activity"
+            android:name=".Activities.Offers_Activity"
             android:label="@string/title_activity_offers_"
             android:theme="@style/listtheme" />
-        <activity android:name=".Profile_Activity"></activity>
+        <activity android:name=".Activities.Profile_Activity" />
+        <activity android:name=".Activities.Image_Viewer_Activity"></activity>
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sohail.spoonfulofhyderabad.Profile_Activity"
+    tools:context="com.sohail.spoonfulofhyderabad.Activities.Profile_Activity"
     android:orientation="vertical">
 
     <LinearLayout

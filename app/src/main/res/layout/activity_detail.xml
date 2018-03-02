@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.sohail.spoonfulofhyderabad.DetailActivity">
+    tools:context="com.sohail.spoonfulofhyderabad.Activities.DetailActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollview"
@@ -136,9 +136,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deal"
+                android:text="ABOUT"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="14dp"
                 android:textSize="18sp"
@@ -151,7 +151,31 @@
                 android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an"
                 android:fontFamily="@font/carme"
                 android:id="@+id/type"
-                android:layout_margin="6dp"/>
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MENU"
+                android:gravity="left"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:fontFamily="@font/carme"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"/>
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:id="@+id/menuImage_rv"
+                android:layout_margin="10dp"
+                >
+
+
+            </android.support.v7.widget.RecyclerView>
 
             <LinearLayout
                 android:layout_width="match_parent"
